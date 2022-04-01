@@ -3,7 +3,7 @@ const apiKey = config.Secret_API_Key;
 // API Request
 apiRequest = () => {
     document.querySelector(".grid").textContent = "";
-    let url = 'https://api.unsplash.com/search/photos?query=' + search.value + '&per_page=30&client_id=' + apiKey
+    let url = 'https://api.unsplash.com/search/photos?query=' + search.value + '&per_page=15&client_id=' + apiKey;
     fetch(url)
         .then(response => {
             if (!response.ok) throw Error(response.statusText);
@@ -13,7 +13,6 @@ apiRequest = () => {
             loadImages(data);
         })
         .catch(error => console.log(error));
-
 }
 
 
@@ -35,7 +34,7 @@ loadImages = (data) => {
 getMoreImages = () => {
     let currentPage = 0;
     let nextPage = currentPage + 1;
-    const addMorePhotos = 'https://api.unsplash.com/search/photos?query=' + search.value + '&per_page=30&page=' + nextPage.value + '&client_id=' + apiKey;
+    let addMorePhotos = 'https://api.unsplash.com/search/photos?query=' + search.value + '&per_page=15&page=' + nextPage.value + '&client_id=' + apiKey;
     fetch(addMorePhotos)
         .then(response => {
             if (!response.ok) throw Error(response.statusText);
@@ -51,7 +50,6 @@ getMoreImages = () => {
 
 document.querySelector(".btn").addEventListener("click", () => {
     getMoreImages();
-    console.log(getMoreImages);
 });
 document.querySelector("#search").addEventListener("keydown", (event) => {
     if (event.key == "Enter")
